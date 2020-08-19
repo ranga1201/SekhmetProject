@@ -1,70 +1,68 @@
 import 'package:flutter/material.dart';
-import './taskData.dart';
 import 'package:intl/intl.dart';
+import './taskPage.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class TaskList extends StatelessWidget {
-  final List task;
-  TaskList(this.task);
+class TaskList extends StatefulWidget {
+  @override
+  _TaskListState createState() => _TaskListState();
+}
+
+class _TaskListState extends State<TaskList> {
+  Future getdata() async {
+    QuerySnapshot qn =
+        await Firestore.instance.collection('tasks').getDocuments();
+    return qn.documents;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 280,
-      child: ListView.builder(
-          itemBuilder: (ctx, index) {
-            return Card(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                        children: <Widget>[
-                          Container(
-                            child: Text(task[index].title,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Theme
-                                      .of(context)
-                                      .primaryColor),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal: 10,
-                            ),
-
-                            padding: EdgeInsets.all(10),
-
-                            child: Text(
-                                task[index].description,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColorDark
-                                )
-                            ),
-                          ),
-                        ]
-                    ),
-                    Text(DateFormat.yMMMd().format(task[index].date),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                            color: Theme
-                                .of(context)
-                                .primaryColorLight
-                        )
-                    ),
-
-                  ]
-              ),
+    return FutureBuilder(
+        future: getdata(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
             );
-          },
-          itemCount: task.length
-      ),
-    );
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Taskpage(
+                                title: snapshot.data[index].data['Title'],
+                                time: snapshot.data[index].data['Time'],
+                                image: snapshot.data[index].data['image_url']))),
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child:
+                          //Expanded(child:
+                          Row
+                          ( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                           children:<Widget>[
+                          Text(
+                        snapshot.data[index].data['Title'],
+                        style: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                      ),
+                     Text(
+                        (snapshot.data[index].data['Time'].toString()),
+                    ),
+                    ]
+                  ),
+                  //)
+                   ),
+                  ),
+                );
+              },
+            );
+          }
+        });
   }
 }

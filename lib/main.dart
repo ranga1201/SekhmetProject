@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
                 )
             ),
             backgroundColor: Colors.green[700],
-            primaryColor: Colors.purple,
-            primarySwatch: Colors.deepPurple,
+            primaryColor: Colors.blue,
+            primarySwatch: Colors.lightBlue,
             accentColor: Colors.blueAccent
         )
     );
@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Scaffold(
       backgroundColor: Color(0xff84FFFF),
       appBar: AppBar(
-          title: Text('Dementia Care')),
+          title: Text('Wellbe')),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: curIndex,
         type: BottomNavigationBarType.fixed,

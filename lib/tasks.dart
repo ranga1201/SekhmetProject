@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import'./newTasks.dart';
-import './taskData.dart';
 import'./TaskList.dart';
+import'dart:io';
 
 class TaskPage extends StatelessWidget {
   // This widget is the root of your application.
@@ -39,24 +39,13 @@ class MyTaskPage extends StatefulWidget {
 }
 
 class MyTaskPageState extends State <MyTaskPage> {
-  final List<Tasks> task = [];
-  void addNew(String txtitle, String txdes) {
-    final newTx = Tasks(
-      title: txtitle,
-      description: txdes,
-      date: DateTime.now(),
 
-    );
-    setState(() {
-      task.add(newTx);}
-    );
-  }
   void startAddNewTask(BuildContext ctx)
   {
     showModalBottomSheet(context: ctx, builder: (_){
       return  GestureDetector(
         onTap: () {} ,
-        child:NewTask(addNew),
+        child:NewTask(),
         behavior: HitTestBehavior.opaque,
       );
     }
@@ -64,13 +53,13 @@ class MyTaskPageState extends State <MyTaskPage> {
   }
   Widget build(BuildContext context)
   { return Scaffold (
-    body: SingleChildScrollView
-      (child:
-    Column(
+    body:
+    /*Column(
       mainAxisAlignment:MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
+          height: 40,
           width: double.infinity,
           child:
           Card(
@@ -78,13 +67,14 @@ class MyTaskPageState extends State <MyTaskPage> {
             child:Center(child:
           Text('Assign Tasks here',style : TextStyle (fontSize: 30)),),
           ),
-        ),
-        TaskList(task),
+        ),*/
 
-      ]
-      ,
-    ),
-    ),
+        TaskList(),
+
+      //]
+
+    //),
+
     floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     floatingActionButton: FloatingActionButton(
       child: Icon(Icons.add),

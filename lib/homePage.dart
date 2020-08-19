@@ -1,6 +1,10 @@
+import 'package:dementiacare/mapnav.dart';
+import 'package:dementiacare/music.dart';
+import 'package:dementiacare/pulse.dart';
 import 'package:flutter/cupertino.dart';
 import'package:flutter/material.dart';
 import './tasks.dart';
+import'./pulse.dart';
 
 class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
@@ -28,13 +32,22 @@ class HomePageState extends State<HomePage> {
       image = 'assets/images/ic_home_48px-512.png';
     }
     else {
-      statusAns = Text(
-          'Outdoors',
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.red,
-          )
-      );
+      statusAns =FlatButton(
+        onPressed:() { Navigator.push(
+          context,
+            MaterialPageRoute(builder: (context) => MyMap()),
+        );
+        },
+        child: Text('Outdoors',
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.red,
+            )
+        )
+
+        );
+
+
       image = 'assets/images/steps.png';
     }
     return statusAns;
@@ -58,12 +71,19 @@ class HomePageState extends State<HomePage> {
             )
       );
     else
-      pulseStat =  Text('High! Possibility of an anxiety attack',
-            style:TextStyle(
-              color: Colors.red,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            )
+      pulseStat =  FlatButton(
+          onPressed:() { Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Music()),
+          );
+          },
+          child: Text('High! possiblity of an anxiety attack',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.red,
+              )
+          )
+
       );
     return pulseStat;
   }
@@ -172,6 +192,7 @@ class HomePageState extends State<HomePage> {
                               ),
 
                         ),
+                        //pulseGraph(),
                         Container(
                             padding: EdgeInsets.all(15),
                             width: double.infinity,
