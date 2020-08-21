@@ -1,4 +1,4 @@
-# Dementia Care
+# Dementia Care - Patient App
 
 A new Flutter project.
 
