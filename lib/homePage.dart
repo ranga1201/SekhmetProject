@@ -21,7 +21,7 @@ class HomePageState extends State<HomePage> {
   String image;
 
   Widget status() {
-    if (gpsX == 80 && gpsY == 80) {
+    if (gpsX == 60 && gpsY == 60) {
       statusAns = Text(
           'At home',
           style: TextStyle(
@@ -197,12 +197,14 @@ class HomePageState extends State<HomePage> {
                             padding: EdgeInsets.all(15),
                             width: double.infinity,
                             child:Center(
-                            child: Text(
+
+                            child: pulseGraph(),
+                           /* Text(
                                 'Graph',
                                 style: TextStyle(
                                   fontSize: 80,
                                 )
-                            )
+                            )*/
                         )
                         ),
                         pulseAns(),
