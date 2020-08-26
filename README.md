@@ -1,6 +1,6 @@
-# dementiacare
+# dementiacare- Caretaker App
 
-A new Flutter application.
+A Flutter application for a caretaker to monitor demetia patient. 
 
 ## Getting Started
 
