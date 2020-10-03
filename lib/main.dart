@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:music_player/music_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart';
 import './musicList.dart';
+import './TaskList.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,26 +34,7 @@ class _MyAppState extends State<MyApp> {
                   body: Container(
                     child: Stack(
                       children: [
-                        Align(
-                            alignment: Alignment(0.0, -0.95),
-                            child: Text(
-                              ("While you are at home, here are your tasks!"),
-                            )),
-                        Align(
-                            alignment: Alignment(-1.0, 0.0),
-                            child: ListView(
-                              shrinkWrap: true,
-                              padding: const EdgeInsets.all(10.0),
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text('Buy groceries'),
-                                  ],
-                                ),
-                              ],
-                            )),
+                        TaskList(),
                         Align(
                           alignment: Alignment(0.87, 0.87),
                           child: ButtonBar(
@@ -59,6 +43,12 @@ class _MyAppState extends State<MyApp> {
                             buttonHeight: 80,
                             buttonMinWidth: 100,
                             children: <Widget>[
+                              RaisedButton.icon(
+                                icon: Icon(Icons.add_call),
+                                onPressed: () => launch("tel://9629333190"),
+                                label: Text('Call'),
+                                color: Colors.green[100],
+                              ),
                               RaisedButton.icon(
                                 onPressed: () {
                                   pushSaved(context);
@@ -94,19 +84,27 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             body: Stack(children: [
+              Column(),
+              CalmImageAsset(),
               Align(
                   alignment: Alignment(0.0, -0.95),
                   child: Text(
                     ("Nice to see you up and about! "),
                   )),
               Align(
-                alignment: Alignment(0.87, 0.87),
+                alignment: Alignment(0.95, 0.95),
                 child: ButtonBar(
                   mainAxisSize: MainAxisSize.max,
                   alignment: MainAxisAlignment.spaceEvenly,
                   buttonHeight: 120,
                   buttonMinWidth: 170,
                   children: <Widget>[
+                    RaisedButton.icon(
+                      icon: Icon(Icons.add_call),
+                      onPressed: () => launch("tel://9629333190"),
+                      label: Text('Call'),
+                      color: Colors.green[100],
+                    ),
                     RaisedButton.icon(
                       onPressed: () {
                         Navigator.pop(context);
@@ -128,12 +126,27 @@ void pushSaved1(BuildContext context) {
   Navigator.of(context).push(
     new MaterialPageRoute(builder: (context) {
       return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(
-              "Favourite music!",
-            ),
+        appBar: new AppBar(
+          title: new Text(
+            "Favourite music!",
           ),
-          body: SongList());
+        ),
+        body: SongList(),
+      );
     }),
   );
+}
+
+class CalmImageAsset extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    AssetImage assetImage = AssetImage('images/video-to-gif-converter.gif');
+    Image image = Image(
+      image: assetImage,
+    );
+    return Container(
+      child: image,
+      alignment: Alignment.center,
+    );
+  }
 }
