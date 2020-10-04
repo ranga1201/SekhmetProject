@@ -140,7 +140,7 @@ class HomePageState extends State<HomePage> {
 
                   )
               ),
-              Card(
+               Card(
                   elevation: 20,
                   child: Row(
 
@@ -174,6 +174,7 @@ class HomePageState extends State<HomePage> {
                     ],
                   )
               ),
+
               Card(
                 margin: EdgeInsets.symmetric(
                 vertical: 10,

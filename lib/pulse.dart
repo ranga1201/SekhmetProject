@@ -2,51 +2,60 @@ import'package:flutter/material.dart';
 import'package:cloud_firestore/cloud_firestore.dart';
 import'package:firebase_storage/firebase_storage.dart';
 import'package:firebase_database/firebase_database.dart';
-import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'dart:math';
+import 'package:shared_preferences/shared_preferences.dart';
+import'dart:async';
+
+class pulse {
+  final String key;
+  int name;
+
+  pulse.fromJson(this.key, Map data) {
+    name = data['pulse'];
+    if (name == null) {
+      name = 0;
+    }
+  }
+}
+
 class pulseGraph extends StatefulWidget {
   pulseGraphState createState() => pulseGraphState();
 }
 
 class pulseGraphState extends State<pulseGraph> {
+  StreamSubscription _subscriptionTodo;
 
- List graph(){
-   List <int> datalist=[];
-   Random rnd;
-  // DatabaseReference ref = FirebaseDatabase.instance.reference();
-  // ref.child('pulse').once().then((DataSnapshot snap){
-     //Map<dynamic, dynamic> values = snap.value;
-    // values.forEach((key, values) {
-      // datalist.add(values);
-     //});
-  // });
-   int min = 70;
-   int max = 120;
-   rnd = new Random();
-   int r = min + rnd.nextInt(max - min);
-   for (int i = 0; i<50 ; i++)
-     {  int r = min + rnd.nextInt(max - min);
-       datalist.add(r);}
-   var listDouble = datalist.map((i) => i.toDouble()).toList();
-   print(listDouble);
-   return listDouble;
- }
+   pulse pval;
 
+  @override
+  void initState() {
+    super.initState();
+    DatabaseReference pulseRef = FirebaseDatabase.instance.reference().child("pulse");
+    pulseRef.once().then((DataSnapshot snap) {
+      var p = snap.value.keys;
+      var keys = snap.value;
+      pval = p ;
+      print(p);
+    });
+  }
+
+  updateTodo(value) {
+    var name = value.pulse;
+    setState((){
+      pval = name;
+    });
+  }
 
   Widget build(BuildContext context){
     return Card(
       child:Expanded( child:
-      Sparkline(
-        data:graph(),
-        pointsMode: PointsMode.all,
-        lineColor: Colors.red[500],
-        //fillMode: FillMode.below,
-        fillColor: Colors.redAccent[200],
-        pointSize: 5.0,
-        pointColor: Colors.white,
-
+      Text('$pval',
+        style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      )
       ),
-      ),
+      )
     );
   }
 }
