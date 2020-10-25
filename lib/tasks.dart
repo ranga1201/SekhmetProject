@@ -78,6 +78,7 @@ class MyTaskPageState extends State <MyTaskPage> {
     floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     floatingActionButton: FloatingActionButton(
       child: Icon(Icons.add),
+      backgroundColor: Color(0xff885566),
       onPressed: () => startAddNewTask(context),
     ),
   );

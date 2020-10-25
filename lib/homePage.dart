@@ -3,7 +3,7 @@ import 'package:dementiacare/music.dart';
 import 'package:dementiacare/pulse.dart';
 import 'package:flutter/cupertino.dart';
 import'package:flutter/material.dart';
-import './tasks.dart';
+import './NewReport.dart';
 import'./pulse.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +19,18 @@ class HomePageState extends State<HomePage> {
   Widget statusAns;
   Widget pulseStat;
   String image;
+
+  void report(BuildContext ctx)
+  {
+    showModalBottomSheet(context: ctx, builder: (_){
+      return  GestureDetector(
+        onTap: () {} ,
+        child:NewReport(),
+        behavior: HitTestBehavior.opaque,
+      );
+    }
+    );
+  }
 
   Widget status() {
     if (gpsX == 60 && gpsY == 60) {
@@ -237,11 +249,26 @@ class HomePageState extends State<HomePage> {
 
  ),
               ),
+              SizedBox(
+                height: 20
+              ),
+              Center(
+                child:
+              RaisedButton(
+                color: Colors.brown,
+                onPressed: ()=>report(context) ,
+                child: Text('Add daily Report',
+                style:TextStyle(
+                    color: Colors.white
+                )),
+              )
+              ),
             ]
 
         ),
       ),
 
     );
+
   }
 }

@@ -29,6 +29,7 @@ class MusicState extends State<Music> {
       body: SongList(),
       floatingActionButtonLocation:  FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
+            backgroundColor: Color(0xff885566),
           child: Icon(Icons.add),
           onPressed: () => startAddNewMusic(context),
         ),

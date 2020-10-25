@@ -67,7 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Scaffold(
       backgroundColor: Color(0xff84FFFF),
       appBar: AppBar(
-          title: Text('Wellbe')),
+          title: Text('CogniFlex'),
+          backgroundColor: Color(0xff885566) ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: curIndex,
         type: BottomNavigationBarType.fixed,

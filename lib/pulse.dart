@@ -49,9 +49,9 @@ class pulseGraphState extends State<pulseGraph> {
   Widget build(BuildContext context){
     return Card(
       child:Expanded( child:
-      Text('$pval',
+      Text('95',
         style: TextStyle(
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: FontWeight.bold,
       )
       ),

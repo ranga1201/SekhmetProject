@@ -58,31 +58,8 @@ class _NewTaskState extends State<NewTask> {
     firestoreinstance.collection('tasks').document().setData(data);
   }
 
-  void meds() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    print('medsss');
-    void initState() {
-      super.initState();
-      titleController = TextEditingController(text: "Take medicine");
-    }
 
-    file = await getImageFileFromAssets('assets/images/medicine.jpg');
-    setState(() {
-      file = file;
-      imagefilepath = basename(file.path);
-      uploadImageFile(file.readAsBytesSync(), imagefilepath);
-    });
-  }
 
-  Future<File> getImageFileFromAssets(String path) async {
-    print('getting file');
-    WidgetsFlutterBinding.ensureInitialized();
-    final byteData = await rootBundle.load(path);
-    final file = File('${(await getTemporaryDirectory()).path}/$path');
-    await file.writeAsBytes(byteData.buffer
-        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-    return file;
-  }
 
   Widget build(BuildContext context) {
     return Card(
@@ -113,27 +90,6 @@ class _NewTaskState extends State<NewTask> {
                       tooltip: 'Set Time',
                       onPressed: () => selectTime(context),
                     ),
-                    /*RaisedButton(
-                      onPressed: () => meds(),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          new Image.asset(
-                            'assets/images/medicine.jpg',
-                            height: 40.0,
-                            width: 40.0,
-                          ),
-                          Padding(
-                              padding: EdgeInsets.only(left: 10.0),
-                              child: new Text(
-                                "Take Medicine",
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold),
-                              ))
-                        ],
-                      ),
-                    ),*/
                   ],
                 ),
               ),
